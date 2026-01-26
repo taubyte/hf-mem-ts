@@ -31,6 +31,10 @@
   ],
   "author": "Taubyte",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taubyte/hf-mem-ts.git"
+  },
   "devDependencies": {
     "@types/node": "^20.10.0",
     "@vitest/coverage-v8": "^2.1.0",
