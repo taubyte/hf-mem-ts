@@ -1,6 +1,6 @@
 {
   "name": "hf-mem",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Estimate inference memory requirements for Hugging Face models",
   "type": "module",
   "main": "./dist/index.js",
@@ -29,7 +29,6 @@
     "models",
     "ai"
   ],
-  "author": "Taubyte",
   "license": "MIT",
   "repository": {
     "type": "git",
