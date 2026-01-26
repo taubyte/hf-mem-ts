@@ -1,0 +1,41 @@
+{
+  "name": "hf-mem",
+  "version": "0.1.0",
+  "description": "Estimate inference memory requirements for Hugging Face models",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest --run",
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest --coverage",
+    "prepublishOnly": "npm run test && npm run build"
+  },
+  "keywords": [
+    "huggingface",
+    "memory",
+    "inference",
+    "safetensors",
+    "models",
+    "ai"
+  ],
+  "author": "Taubyte",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@vitest/coverage-v8": "^2.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.3.3",
+    "vitest": "^2.1.0"
+  }
+}
