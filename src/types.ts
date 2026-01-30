@@ -12,7 +12,12 @@ export type SafetensorsDtypes =
   | "F8_E5M2"
   | "F8_E4M3"
   | "I8"
-  | "U8";
+  | "U8"
+  /** 4-bit quantized (INT4, NF4, FP4, etc.); 0.5 bytes per parameter when packed. */
+  | "INT4"
+  | "NF4"
+  | "FP4"
+  | "FP4_E2M1";
 
 export function getSafetensorsDtypeBytes(dtype: string): number {
   switch (dtype) {
@@ -34,6 +39,11 @@ export function getSafetensorsDtypeBytes(dtype: string): number {
     case "I8":
     case "U8":
       return 1;
+    case "INT4":
+    case "NF4":
+    case "FP4":
+    case "FP4_E2M1":
+      return 0.5;
     default:
       throw new RuntimeError(`DTYPE=${dtype} NOT HANDLED`);
   }

@@ -1,6 +1,6 @@
 {
   "name": "hf-mem",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Estimate inference memory requirements for Hugging Face models",
   "type": "module",
   "main": "./dist/index.js",
@@ -19,6 +19,7 @@
     "test": "vitest --run",
     "test:watch": "vitest --watch",
     "test:coverage": "vitest --coverage",
+    "test:browser": "npm run build && playwright test",
     "prepublishOnly": "npm run test && npm run build"
   },
   "keywords": [
@@ -35,8 +36,10 @@
     "url": "https://github.com/taubyte/hf-mem-ts.git"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.1",
     "@types/node": "^20.10.0",
     "@vitest/coverage-v8": "^2.1.0",
+    "serve": "^14.2.5",
     "tsup": "^8.5.1",
     "typescript": "^5.3.3",
     "vitest": "^2.1.0"

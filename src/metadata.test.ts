@@ -100,5 +100,25 @@ describe('metadata', () => {
       expect(result.components.Transformer.paramCount).toBe(expectedParams);
       expect(result.components.Transformer.bytesCount).toBe(expectedParams * 4);
     });
+
+    it('should handle quantized 4-bit dtypes (INT4, NF4, FP4)', () => {
+      const rawMetadata = {
+        Transformer: {
+          'weight.q': { dtype: 'INT4', shape: [1000, 1000] },
+          'weight.scale': { dtype: 'F32', shape: [1000] },
+        },
+      };
+
+      const result = parseSafetensorsMetadata(rawMetadata);
+
+      const int4Params = 1000 * 1000;
+      const f32Params = 1000;
+      expect(result.components.Transformer.dtypes.INT4.paramCount).toBe(int4Params);
+      expect(result.components.Transformer.dtypes.INT4.bytesCount).toBe(int4Params * 0.5);
+      expect(result.components.Transformer.dtypes.F32.paramCount).toBe(f32Params);
+      expect(result.components.Transformer.dtypes.F32.bytesCount).toBe(f32Params * 4);
+      expect(result.paramCount).toBe(int4Params + f32Params);
+      expect(result.bytesCount).toBe(int4Params * 0.5 + f32Params * 4);
+    });
   });
 });

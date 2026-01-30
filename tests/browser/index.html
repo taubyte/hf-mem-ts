@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>hf-mem browser test</title>
+</head>
+<body>
+  <pre id="log">Loading...</pre>
+  <script type="module">
+    const log = (msg) => {
+      document.getElementById('log').textContent += '\n' + msg;
+      console.log(msg);
+    };
+    window.__hfMemResult__ = { status: 'pending' };
+    try {
+      const { run } = await import('/dist/index.js');
+      log('Calling run("MiniMaxAI/MiniMax-M2")...');
+      const result = await run('MiniMaxAI/MiniMax-M2');
+      window.__hfMemResult__ = { status: 'ok', data: result };
+      log('Done. paramCount: ' + result.metadata.paramCount);
+    } catch (err) {
+      const e = err instanceof Error ? err : new Error(String(err));
+      window.__hfMemResult__ = { status: 'error', message: e.message, stack: e.stack };
+      log('Error: ' + e.message);
+    }
+  </script>
+</body>
+</html>

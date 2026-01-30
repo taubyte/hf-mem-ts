@@ -29,6 +29,13 @@ describe('types', () => {
       expect(getSafetensorsDtypeBytes('U8')).toBe(1);
     });
 
+    it('should return 0.5 for 4-bit quantized types', () => {
+      expect(getSafetensorsDtypeBytes('INT4')).toBe(0.5);
+      expect(getSafetensorsDtypeBytes('NF4')).toBe(0.5);
+      expect(getSafetensorsDtypeBytes('FP4')).toBe(0.5);
+      expect(getSafetensorsDtypeBytes('FP4_E2M1')).toBe(0.5);
+    });
+
     it('should throw RuntimeError for unknown dtype', () => {
       expect(() => getSafetensorsDtypeBytes('UNKNOWN')).toThrow(RuntimeError);
       expect(() => getSafetensorsDtypeBytes('UNKNOWN')).toThrow('DTYPE=UNKNOWN NOT HANDLED');

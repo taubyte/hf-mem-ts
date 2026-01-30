@@ -1,4 +1,4 @@
-import { SafetensorsDtypes, getSafetensorsDtypeBytes } from "./types.js";
+import { getSafetensorsDtypeBytes } from "./types.js";
 
 export interface DtypeMetadata {
   paramCount: number;
@@ -6,7 +6,8 @@ export interface DtypeMetadata {
 }
 
 export interface ComponentMetadata {
-  dtypes: Record<SafetensorsDtypes, DtypeMetadata>;
+  /** Per-dtype param and byte counts (includes quantized: INT4, NF4, FP4, etc.). */
+  dtypes: Record<string, DtypeMetadata>;
   paramCount: number;
   bytesCount: number;
 }
@@ -35,7 +36,7 @@ export function parseSafetensorsMetadata(
 
   for (const [name, metadata] of Object.entries(rawMetadata)) {
     const component: ComponentMetadata = {
-      dtypes: {} as Record<SafetensorsDtypes, DtypeMetadata>,
+      dtypes: {},
       paramCount: 0,
       bytesCount: 0,
     };
@@ -49,7 +50,7 @@ export function parseSafetensorsMetadata(
       const dtype = typedValue.dtype;
       
       if (!(dtype in component.dtypes)) {
-        component.dtypes[dtype as SafetensorsDtypes] = {
+        component.dtypes[dtype] = {
           paramCount: 0,
           bytesCount: 0,
         };
@@ -59,8 +60,8 @@ export function parseSafetensorsMetadata(
       const currentShape = typedValue.shape.reduce((acc, val) => acc * val, 1);
       const currentShapeBytes = currentShape * dtypeBytes;
 
-      component.dtypes[dtype as SafetensorsDtypes].paramCount += currentShape;
-      component.dtypes[dtype as SafetensorsDtypes].bytesCount += currentShapeBytes;
+      component.dtypes[dtype].paramCount += currentShape;
+      component.dtypes[dtype].bytesCount += currentShapeBytes;
       component.paramCount += currentShape;
       component.bytesCount += currentShapeBytes;
       totalParamCount += currentShape;
