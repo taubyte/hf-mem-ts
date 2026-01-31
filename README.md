@@ -2,6 +2,10 @@
 
 Estimate inference memory requirements for Hugging Face models.
 
+**Demo:** [taubyte.com/tools/hf-mem](https://taubyte.com/tools/hf-mem) — try it in the browser with any model ID, optional token, and GPU selection.
+
+![Model Memory Estimator](assets/screenshot.png)
+
 ## Installation
 
 ```bash
